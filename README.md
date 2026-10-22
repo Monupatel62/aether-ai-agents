@@ -12,7 +12,7 @@ Runs agent tasks using explicit policies; does not bypass API authorization.
 
 ## Dependencies
 
-WoHo AI DevKit @woho/agents, @woho/core, @woho/tools, @woho/memory, @woho/mcp where compatible; aether-ai-tools and workflows contracts.
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability.
 
 ## Project rules
 
