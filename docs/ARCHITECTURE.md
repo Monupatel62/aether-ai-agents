@@ -8,7 +8,7 @@ Must enforce bounded execution and permission checks; agents cannot bypass API/s
 
 ## Dependencies
 
-WoHo AI DevKit @woho/core and @woho/agents where compatible; aether-ai-tools, aether-ai-memory, aether-ai-observability.
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability.
 
 ## Data and control flow
 
