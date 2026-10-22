@@ -12,7 +12,7 @@
 
 ## Phase 1 — minimum viable component
 
-Verify WoHo DevKit package APIs, define lifecycle and approval states, context budgets, and tool permission tests.
+Define lifecycle and approval states, context budgets, and tool permission tests against the Aether-owned contracts.
 
 - [ ] Implement only this repository's owned responsibility; reuse stable interfaces rather than copying adjacent modules.
 - [ ] Add typed configuration validation, safe defaults, structured redacted logging, and correlation IDs.
