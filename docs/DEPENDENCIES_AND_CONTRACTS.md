@@ -8,7 +8,7 @@ Agent run contract, tool-call envelope, approval event, result and cancellation 
 
 ## Direct dependencies
 
-WoHo DevKit packages where compatible; tools, memory, gateway, orchestration.
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, aether-ai-observability, and aether-ai-orchestration through versioned contracts.
 
 ## Required rules
 
