@@ -1,6 +1,6 @@
 # Repository specification: aether-ai-agents
 
-**Status:** Documentation baseline copied from the Aether AI master specification. Implementation status must be verified separately.
+**Status:** Repository exists; documentation-only on the inspected `main` branch. No application implementation is present in the audited tree.
 
 ## Mission
 
@@ -12,6 +12,7 @@ Must never bypass authorization or execute unscoped tools; model calls go throug
 
 ## Dependencies and connections
 
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability.
 
 ## Owned capabilities
 
