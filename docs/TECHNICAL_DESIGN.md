@@ -12,7 +12,7 @@ Proposed lifecycle: created -> queued -> running -> awaiting_approval (optional)
 
 ## Connections and ownership
 
-Use compatible WoHo DevKit @woho/agents/@woho/core where actual package exports fit; do not duplicate its runtime blindly. Agent calls tool registry only with scoped tool manifests. Orchestration owns durable state if run spans process restarts.
+Use Aether-owned agent contracts and route model calls through the gateway. Agent calls the tool registry only with scoped tool manifests. Orchestration owns durable state if a run spans process restarts.
 
 ## Failure cases to design explicitly
 
@@ -46,9 +46,3 @@ When implementation begins, explain security invariants, state transitions, retr
 - [Research and licenses](RESEARCH_AND_LICENSES.md)
 - [Work log](WORKLOG.md)
 - [Master repository spec](https://github.com/Monupatel62/aether-ai-platform/blob/main/docs/repositories/aether-ai-agents.md)
-
-## DevKit integration boundary
-
-The inspected `@woho/agents 0.3.28` source exposes bounded run options including cancellation, run/project/session IDs, approval hooks, checkpoint callbacks, tool lifecycle hooks, max steps/context/tool calls/token limits. It depends on `@woho/core`, `@woho/memory`, and `@woho/mcp`.
-
-Treat this as a candidate runtime, not proof of production durability or tenant security. Aether's orchestration layer owns durable multi-process run state and recovery; Aether's dispatcher owns tenant/resource authorization and billing/audit policy. Confirm exact published package exports and run the test matrix in the [master DevKit compatibility review](https://github.com/Monupatel62/aether-ai-platform/blob/main/docs/DEVKIT_COMPATIBILITY_REVIEW.md) before adding dependencies.
