@@ -1,6 +1,6 @@
 # aether-ai-agents
 
-> **Status: Documentation phase.** No application code or production deployment has been started in this repository.
+> **Status: Initial bounded agent-run policy validator is in review.** No agent runtime, durable state, model planning, or production deployment is implemented.
 
 ## Purpose
 
@@ -19,6 +19,10 @@ aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and ae
 - No implementation starts until the documentation and cross-repository contracts are reviewed.
 - Do not commit secrets, API keys, user data, or production credentials.
 - Public interfaces, security decisions, and non-obvious implementation choices must be documented.
+
+## Initial implementation
+
+The draft package validates max-step, tool-call, wall-time, output-token, tool-output, and retry budgets; checks the tool allowlist; and requires a fail-closed policy flag for approval of side effects. It does not execute agents, enforce budgets at runtime, authenticate the caller, persist runs, or integrate with gateway/tools. Budget defaults and lifecycle contracts remain provisional.
 
 ## Documentation
 
