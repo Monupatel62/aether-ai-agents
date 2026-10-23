@@ -4,15 +4,15 @@
 
 ## Contract area
 
-Agent run contract, tool-call envelope, approval event, result and cancellation states
+Agent run contract, tool-call envelope, approval event, result and cancellation states.
 
 ## Direct dependencies
 
-aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, aether-ai-observability, and aether-ai-orchestration through versioned contracts.
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability. Durable execution is owned by `aether-ai-orchestration`, which consumes the agent runtime contract; agents must not import orchestration implementation or depend on it as a package. Shared run/event schemas must be published as a lower-level versioned contract if needed, without creating a reverse package edge.
 
 ## Required rules
 
-Specify run IDs, max steps/time/tokens, approved tools/scopes, lifecycle events, tool output size, human approval and cancellation semantics.
+Specify run IDs, max steps/time/tokens, approved tools/scopes, lifecycle events, tool output size, human approval and cancellation semantics. The orchestration boundary owns durable run state, retries, leases and recovery; agent runtime executes bounded steps under the contract supplied by orchestration.
 
 ## Contract governance
 
