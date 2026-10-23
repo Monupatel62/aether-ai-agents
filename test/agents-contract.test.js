@@ -41,3 +41,13 @@ test("declares gateway, tool authorization, orchestration, and untrusted output 
   assert.equal(requirements.durableRunStateOwnedByOrchestration, true);
   assert.equal(requirements.untrustedModelOutputMustNotGrantAuthority, true);
 });
+
+
+test("accumulates elapsed time across budget updates", () => {
+  let value = run();
+  value = consumeAgentBudget(value, { elapsedMs: 70_000 });
+  assert.equal(value.elapsedMsUsed, 70_000);
+  value = consumeAgentBudget(value, { elapsedMs: 50_000 });
+  assert.equal(value.elapsedMsUsed, 120_000);
+  assert.throws(() => consumeAgentBudget(value, { elapsedMs: 1 }), /duration budget/);
+});
