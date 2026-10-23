@@ -4,19 +4,27 @@
 
 ## Contract area
 
-Agent run contract, tool-call envelope, approval event, result and cancellation states
+Agent run contract, tool-call envelope, approval event, result and cancellation states.
 
 ## Direct dependencies
 
-aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, aether-ai-observability, and aether-ai-orchestration through versioned contracts.
+- `aether-ai-gateway`: bounded model request/response and streaming contract.
+- `aether-ai-tools`: policy-enforced tool manifest and invocation contract.
+- `aether-ai-memory`: scoped memory retrieval/write contract where enabled.
+- `aether-ai-security`: policy request/decision and trusted-context contract.
+- `aether-ai-observability`: redacted telemetry and lifecycle events.
+
+## Explicit non-dependency: Orchestration
+
+`aether-ai-agents` MUST NOT import or directly depend on `aether-ai-orchestration`. Orchestration owns durable run/step state, leases, retries, cancellation and recovery; it consumes the versioned Agent execution contract. Agents may emit versioned lifecycle/result events or return typed results, but must not call back into Orchestration's implementation. This direction avoids a package cycle and preserves one durable state-machine owner.
 
 ## Required rules
 
-Specify run IDs, max steps/time/tokens, approved tools/scopes, lifecycle events, tool output size, human approval and cancellation semantics.
+Specify run IDs, max steps/time/tokens, approved tools/scopes, lifecycle events, tool output size, human approval and cancellation semantics. Agent-local execution state must not become a competing durable run ledger.
 
 ## Contract governance
 
-- The [master catalog](https://github.com/Monupatel62/aether-ai-platform/blob/main/docs/REPOSITORY_CATALOG.md) is the canonical dependency map.
+- The [master catalog](https://github.com/Monupatel62/aether-ai-platform/blob/main/docs/REPOSITORY_CATALOG.md) and [dependency matrix](https://github.com/Monupatel62/aether-ai-platform/blob/main/docs/DEPENDENCY_MATRIX.md) are canonical dependency references.
 - Public REST endpoints require OpenAPI definitions, versioning, stable error codes, and compatibility tests.
 - Events require a schema version, event/run ID, timestamp, correlation ID, tenant/principal scope where appropriate, and explicit retry/idempotency semantics.
 - Package interfaces must distinguish public stable exports from internal implementation details.
