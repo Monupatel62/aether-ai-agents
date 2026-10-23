@@ -8,7 +8,11 @@ Agent run contract, tool-call envelope, approval event, result and cancellation 
 
 ## Direct dependencies
 
-aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, aether-ai-observability, and aether-ai-orchestration through versioned contracts.
+aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability.
+
+## Orchestration boundary
+
+`aether-ai-orchestration` consumes the versioned agent execution contract and owns durable run state, scheduling, retries, recovery, leases, and terminal-state transitions. Agents must not depend on or import orchestration implementation and must not maintain a competing durable run ledger. Orchestration invokes agent work through the public agent contract.
 
 ## Required rules
 
