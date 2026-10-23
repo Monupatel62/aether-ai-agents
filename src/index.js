@@ -31,6 +31,7 @@ export function createAgentRun(input = {}, policy = {}) {
     limits: Object.freeze(limits),
     stepsUsed: 0,
     tokensUsed: 0,
+    elapsedMsUsed: 0,
     approvalRequired: input.approvalRequired === true,
   });
 }
@@ -56,10 +57,11 @@ export function consumeAgentBudget(run, { steps = 0, tokens = 0, elapsedMs = 0 }
   for (const [name, value] of Object.entries({ steps, tokens, elapsedMs })) if (!Number.isInteger(value) || value < 0) throw new TypeError(`${name} must be a non-negative integer`);
   const stepsUsed = run.stepsUsed + steps;
   const tokensUsed = run.tokensUsed + tokens;
+  const elapsedMsUsed = (run.elapsedMsUsed ?? 0) + elapsedMs;
   if (stepsUsed > run.limits.maxSteps) throw new RangeError("agent step budget exceeded");
   if (tokensUsed > run.limits.maxTokens) throw new RangeError("agent token budget exceeded");
-  if (elapsedMs > run.limits.maxDurationMs) throw new RangeError("agent duration budget exceeded");
-  return Object.freeze({ ...run, stepsUsed, tokensUsed });
+  if (elapsedMsUsed > run.limits.maxDurationMs) throw new RangeError("agent duration budget exceeded");
+  return Object.freeze({ ...run, stepsUsed, tokensUsed, elapsedMsUsed });
 }
 
 export function createAgentRunEvent({ eventId, run, eventType, occurredAt, stepNumber, data = {} } = {}) {
