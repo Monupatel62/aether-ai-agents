@@ -8,7 +8,17 @@ Agent run contract, tool-call envelope, approval event, result and cancellation 
 
 ## Direct dependencies
 
-aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, aether-ai-observability, and aether-ai-orchestration through versioned contracts.
+Runtime-facing agent contracts consume `aether-ai-gateway`, `aether-ai-tools`, `aether-ai-memory`, `aether-ai-security`, and `aether-ai-observability`.
+
+`aether-ai-orchestration` consumes the public, versioned agent contract; it is not a runtime dependency of the Agents component. Orchestration owns durable run/step state, worker recovery, and cross-process lifecycle transitions. Agents may define local domain transition helpers, but must not become a second durable ledger or call into Orchestration internals.
+
+## Contract separation
+
+- Agents submits model requests only through Gateway contracts.
+- Agents requests tool actions through the public Tools contract; each invocation is independently authorized and policy-checked.
+- Agent state/budget helpers describe bounded execution, but do not establish tenant membership, approval identity, persistent state, or a real-time deadline by themselves.
+- Correlation/run events are proposals until their shared envelope and producer/consumer semantics are validated against the master contracts.
+
 
 ## Required rules
 

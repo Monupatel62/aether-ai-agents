@@ -8,7 +8,9 @@ Must enforce bounded execution and permission checks; agents cannot bypass API/s
 
 ## Dependencies
 
-aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and aether-ai-observability.
+Agents consumes model-access contracts from `aether-ai-gateway`, tool invocation contracts from `aether-ai-tools`, memory interfaces from `aether-ai-memory`, policy/security contracts from `aether-ai-security`, and approved telemetry conventions from `aether-ai-observability`.
+
+`aether-ai-orchestration` consumes the public agent contract and owns durable run/step state, recovery, and cross-process transitions. Agents must not depend on Orchestration internals or keep a competing durable run ledger. Any local lifecycle helper is an in-process domain model only.
 
 ## Data and control flow
 
@@ -25,6 +27,9 @@ aether-ai-gateway, aether-ai-tools, aether-ai-memory, aether-ai-security, and ae
 - Secrets remain server-side and are passed only to the component that needs them.
 - Treat model output, uploaded files, external connector output, MCP metadata, and workflow definitions as untrusted data.
 - Enforce least privilege and tenant isolation at every data access and tool-execution boundary.
+- Model output is a proposal, not authority. Reauthorize current principal, tenant/resource scope, capability and policy immediately before tool side effects.
+- Budget helpers can reject excessive requested work but cannot enforce a real wall-clock deadline without an external supervisor or runtime.
+- Approval and tenant identifiers in an input object are claims until validated by the owning trusted service; local shape validation does not authenticate them.
 
 ## Proposed deployment shape
 
