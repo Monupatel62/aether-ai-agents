@@ -30,3 +30,14 @@ For each future change, record: date; exact files; why the change is needed; alt
 - Reviewed official MCP 2026-07-28 release notes, OWASP GenAI 2026 Top 10 announcement, OpenTelemetry GenAI conventions, GitHub Actions secure-use guidance, and AI DIAL Core documentation.
 - Master audit and threat model are linked from the platform repository.
 - No application code, production config, or security implementation was added; these are design requirements, not claims of implemented controls.
+
+
+## 2026-10-23 — Dependency and lifecycle boundary review
+
+- Corrected the proposed direct-dependency text: Agents consumes Gateway, Tools, Memory, Security and Observability contracts; Orchestration consumes the public Agent contract and owns durable run/step state.
+- Clarified that in-process agent lifecycle/budget helpers do not establish tenant membership, approval identity, persistence, or real-time deadline enforcement.
+- Added architecture notes requiring independent tool authorization, Gateway-only model calls, and external enforcement for actual execution deadlines.
+- Verification: updated architecture and dependency contract were fetched back from the branch.
+- Security impact: prevents trusted authority being inferred from caller-provided tenant/approval fields and prevents duplicate durable ledgers.
+- Limitations: documentation-only; does not verify the separate bounded Agent contract PR's CI, runtime safety, or correctness.
+- Remaining decisions: ADR-0021 membership/role authority, canonical event schemas, runtime/supervisor semantics, and explicit Phase 1 approval remain open.
